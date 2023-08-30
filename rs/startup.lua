@@ -10,7 +10,7 @@ local util = require("common.util")
 
 local config = require("rs.config")
 
-local RS_VERSION = "v0.0.1"
+local RS_VERSION = "v0.0.2"
 
 local println = util.println
 local println_ts = util.println_ts
@@ -43,8 +43,8 @@ crash.set_env("rs", RS_VERSION)
 -----------------------------------------
 
 local function main()
-  local bridge = peripherial.find("rsBridge")
-  local monitor = peripherial.find("monitor")
+  local bridge = peripheral.find("rsBridge")
+  local monitor = peripheral.find("monitor")
 
   local craftableItems = bridge.listCraftableItems()
 
