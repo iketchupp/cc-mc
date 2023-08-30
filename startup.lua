@@ -1,6 +1,6 @@
 local util = require("common.util")
 
-local BOOTLOADER_VERSION = "0.1"
+local BOOTLOADER_VERSION = "0.2"
 
 local println = util.println
 local println_ts = util.println_ts
@@ -11,14 +11,14 @@ local exit_code ---@type boolean
 
 println_ts("BOOT> SCANNING FOR APPLICATIONS...")
 
-if fs.exists("reactor-plc/startup.lua") then
+if fs.exists("rs/startup.lua") then
     -- found reactor-plc application
-    println("BOOT> FOUND REACTOR PLC APPLICATION")
+    println("BOOT> FOUND REFINED STORAGE APPLICATION")
     println("BOOT> EXEC STARTUP")
-    exit_code = shell.execute("reactor-plc/startup")
+    exit_code = shell.execute("rs/startup")
 else
     -- no known applications found
-    println("BOOT> NO SCADA STARTUP APPLICATION FOUND")
+    println("BOOT> NO MC STARTUP APPLICATION FOUND")
     println("BOOT> EXIT")
     return false
 end
