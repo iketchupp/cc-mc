@@ -4,8 +4,8 @@ local function print(message) term.write(tostring(message)) end
 local CCMCI_VERSION = "v0.1"
 
 local install_dir = "/.install-cache"
-local manifest_path = "https://git.bountles.xyz/cc-rf/manifests/"
-local repo_path = "http://raw.githubusercontent.com/iketchupp/cc-rf/"
+local manifest_path = "https://git.bountles.xyz/manifests/"
+local repo_path = "http://raw.githubusercontent.com/iketchupp/cc-mc/"
 
 local opts = { ... }
 local mode, app, target
