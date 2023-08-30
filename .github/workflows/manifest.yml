@@ -1,0 +1,55 @@
+name: Deploy Installation Data
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Setup Python
+        uses: actions/setup-python@v3.1.3
+      - name: Checkout master
+        id: checkout-master
+        uses: actions/checkout@v3
+        with:
+          ref: 'master'
+          clean: false
+      - name: Create outputs folders
+        if: success() || failure()
+        shell: bash
+        run: mkdir deploy; mkdir deploy/manifests; mkdir deploy/manifests/master
+      - name: Generate manifest and shields for master branch
+        id: manifest-master
+        if: ${{ (success() || failure()) && steps.checkout-master.outcome == 'success' }}
+        run: python imgen.py shields
+      - name: Save master's manifest
+        if: ${{ (success() || failure()) && steps.manifest-master.outcome == 'success' }}
+        run: mv install_manifest.json deploy/manifests/master
+      - name: Upload artifacts
+        id: upload-artifacts
+        if: ${{ (success() || failure()) && steps.manifest-master.outcome == 'success' }}
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'deploy/'
+      - name: Deploy to GitHub Pages
+        if: ${{ (success() || failure()) && steps.upload-artifacts.outcome == 'success' }}
+        id: deployment
+        uses: actions/deploy-pages@v2
