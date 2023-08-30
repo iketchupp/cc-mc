@@ -48,7 +48,7 @@ def make_manifest(size):
         "versions" : {
             "installer" : get_version("./ccmci.lua"),
             "bootloader" : get_version("./startup.lua"),
-            "common" : get_version("./common/util.lua", True)
+            "common" : get_version("./common/util.lua", True),
             "rs" : get_version("./rs/startup.lua"),
         },
         "files" : {
