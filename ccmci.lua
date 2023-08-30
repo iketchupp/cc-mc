@@ -1,7 +1,7 @@
 local function println(message) print(tostring(message)) end
 local function print(message) term.write(tostring(message)) end
 
-local CCMCI_VERSION = "v0.1"
+local CCMCI_VERSION = "v0.2"
 
 local install_dir = "/.install-cache"
 local manifest_path = "https://git.bountles.xyz/manifests/"
@@ -191,6 +191,7 @@ if #opts == 0 or opts[1] == "help" then
   println(" remove      - delete files EXCEPT for config/logs")
   println(" purge       - delete files INCLUDING config/logs")
   white();println("<app>");lgray()
+  println(" rs          - refined storage application")
   println(" installer   - ccmci installer (update only)")
   white();println("<branch>")
   lgray();println(" master (default)");white()
@@ -202,7 +203,7 @@ else
     return
   end
 
-  app = get_opt(opts[2], { "installer" })
+  app = get_opt(opts[2], { "installer", "rs" })
   if app == nil and mode ~= "check" then
     red();println("Unrecognized application.");white()
     return

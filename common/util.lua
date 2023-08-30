@@ -8,7 +8,7 @@ local cc_strings = require("cc.strings")
 local util = {}
 
 -- version
-util.version = "0.0.1"
+util.version = "0.0.2"
 
 -- ENVIRONMENT CONSTANTS --
 
