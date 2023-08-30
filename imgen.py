@@ -49,19 +49,25 @@ def make_manifest(size):
             "installer" : get_version("./ccmci.lua"),
             "bootloader" : get_version("./startup.lua"),
             "common" : get_version("./common/util.lua", True)
+            "rs" : get_version("./rs/startup.lua"),
         },
         "files" : {
             # common files
             "system" : [ "initenv.lua", "startup.lua" ],
             "common" : list_files("./common"),
+            "rs" : list_files("./rs"),
         },
-#         "depends" : {},
+        "depends" : {
+            "rs": [ "system", "common" ]
+        },
         "sizes" : {
             # manifest file estimate
             "manifest" : size,
             # common files
             "system" : os.path.getsize("initenv.lua") + os.path.getsize("startup.lua"),
             "common" : dir_size("./common"),
+            # platform files
+            "rs" : dir_size("./rs")
         }
     }
 
